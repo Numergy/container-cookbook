@@ -1,0 +1,28 @@
+---
+driver:
+  customize:
+    memory: 2048
+
+driver_plugin: vagrant
+driver_config:
+  require_chef_omnibus: true
+
+platforms:
+  - name: ubuntu-1204
+    driver_config:
+      box: opscode-ubuntu-12.04
+      box_url: https://opscode-vm.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04_provisionerless.box
+
+suites:
+  - name: ndenv
+    run_list:
+      - recipe[container::ndenv]
+  - name: phpenv
+    run_list:
+      - recipe[container::phpenv]
+  - name: pyenv
+    run_list:
+      - recipe[container::pyenv]
+  - name: rbenv
+    run_list:
+      - recipe[container::rbenv]

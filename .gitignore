@@ -1,0 +1,11 @@
+.project
+.bundle/
+.vagrant
+.coverage/
+*.swp
+Berksfile.lock
+Gemfile.lock
+vendor
+cookbooks
+.kitchen/
+/.kitchen.key

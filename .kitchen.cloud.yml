@@ -1,0 +1,35 @@
+---
+driver_plugin: openstack
+driver_config:
+  name: openstack
+  require_chef_omnibus: latest
+  openstack_username: kitchen
+  openstack_api_key: iiH599Ck
+  openstack_auth_url: http://172.21.50.10:5000/v2.0/tokens
+  openstack_tenant: kitchen
+  key_name: kitchen_rsa
+  private_key_path: <%= "#{ENV['PWD']}/.kitchen.key" %>
+  floating_ip_pool: public
+  security_groups:
+    - default
+  flavor_ref: 2
+
+platforms:
+  - name: ubuntu-1204
+    driver_config:
+      image_ref: bb559da8-aba1-461c-b133-50bff3b0e97f
+      username: ubuntu
+
+suites:
+  - name: ndenv
+    run_list:
+      - recipe[container::ndenv]
+  - name: phpenv
+    run_list:
+      - recipe[container::phpenv]
+  - name: pyenv
+    run_list:
+      - recipe[container::pyenv]
+  - name: rbenv
+    run_list:
+      - recipe[container::rbenv]
