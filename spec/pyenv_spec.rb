@@ -5,7 +5,11 @@ require_relative 'spec_helper'
 describe 'container::pyenv' do
   subject { ChefSpec::Runner.new.converge(described_recipe) }
 
-  it 'does includes recipes' do
+  it 'does include default recipe' do
+    expect(subject).to include_recipe('container')
+  end
+
+  it 'does includes pyenv recipe' do
     expect(subject).to include_recipe('pyenv::system')
   end
 

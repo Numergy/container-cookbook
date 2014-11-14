@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-require 'spec_helper'
+require 'serverspec'
+set :backend, :exec
 
 capabilities = ['/usr/local/pyenv/shims/pip',
                 '/usr/local/pyenv/shims/python',

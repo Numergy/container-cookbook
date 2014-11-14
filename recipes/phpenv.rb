@@ -11,7 +11,8 @@
 node.default['phpenv']['user'] = 'root'
 node.default['phpenv']['group'] = 'root'
 node.default['phpenv']['user_home'] = '/root/'
-node.default['phpenv']['root_path'] = '/root/.phpenv'
+
+include_recipe 'container'
 
 package 'libreadline-dev'
 

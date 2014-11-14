@@ -5,11 +5,15 @@ require_relative 'spec_helper'
 describe 'container::phpenv' do
   subject { ChefSpec::Runner.new.converge(described_recipe) }
 
+  it 'does include default recipe' do
+    expect(subject).to include_recipe('container')
+  end
+
   it 'does install libreadline-dev package' do
     expect(subject).to install_package('libreadline-dev')
   end
 
-  it 'does includes recipes' do
+  it 'does includes phpenv recipe' do
     expect(subject).to include_recipe('phpenv')
   end
 

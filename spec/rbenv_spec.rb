@@ -5,7 +5,11 @@ require_relative 'spec_helper'
 describe 'container::rbenv' do
   subject { ChefSpec::Runner.new.converge(described_recipe) }
 
-  it 'does includes recipes' do
+  it 'does include default recipe' do
+    expect(subject).to include_recipe('container')
+  end
+
+  it 'does includes rbenv recipes' do
     expect(subject).to include_recipe('rbenv')
     expect(subject).to include_recipe('rbenv::ruby_build')
   end

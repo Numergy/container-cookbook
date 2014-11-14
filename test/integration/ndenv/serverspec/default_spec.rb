@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-require 'spec_helper'
+require 'serverspec'
+set :backend, :exec
 
 capabilities = ['/root/.ndenv/shims/npm',
                 '/root/.ndenv/shims/node',

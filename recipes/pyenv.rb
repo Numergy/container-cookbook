@@ -11,6 +11,7 @@
 node.default['pyenv']['pythons'] = ['2.7.6', '3.3.3']
 node.default['pyenv']['global'] = '2.7.6'
 
+include_recipe 'container'
 include_recipe 'pyenv::system'
 
 node['pyenv']['pythons'].each do |python_version|
