@@ -15,9 +15,13 @@ driver_config:
   flavor_ref: 2
 
 platforms:
-  - name: ubuntu-1204
+  - name: ubuntu-12.04
     driver_config:
       image_ref: bb559da8-aba1-461c-b133-50bff3b0e97f
+      username: ubuntu
+  - name: ubuntu-14.04
+    driver_config:
+      image_ref: c2257159-19c6-4b39-ad8c-cfd1ce1de7a8
       username: ubuntu
 
 suites:
@@ -33,3 +37,8 @@ suites:
   - name: rbenv
     run_list:
       - recipe[container::rbenv]
+  - name: builder
+    run_list:
+      - recipe[container::builder]
+    excludes:
+      - ubuntu-12.04
