@@ -24,9 +24,13 @@ end
 
 namespace :test do
   desc 'Tests suites runner'
-  task :all do
+
+  task :checkstyle do
     Rake::Task['test:foodcritic'].invoke
     Rake::Task['test:rubocop'].invoke
+  end
+
+  task :specs do
     Rake::Task['test:chefspec'].invoke
   end
 

@@ -9,3 +9,4 @@ vendor
 cookbooks
 .kitchen/
 /.kitchen.key
+/.kitchen.local.yml

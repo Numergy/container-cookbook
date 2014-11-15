@@ -1,0 +1,7 @@
+language: ruby
+rvm:
+- 2.0.0
+script:
+- bundle exec rake test:checkstyle
+- bundle exec rake test:specs
+- KITCHEN_YAML=.kitchen.cloud.yml bundle exec kitchen test --destroy=always
