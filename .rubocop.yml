@@ -12,4 +12,5 @@ AllCops:
     - test/**/*
   Exclude:
     - cookbooks/**/*
+    - dockerfiles/**/*
     - vendor/**/*
