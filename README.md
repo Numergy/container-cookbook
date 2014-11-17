@@ -1,6 +1,6 @@
 Container Cookbook
 ==================
-The Chef cookbook to build Docker containers for CI/CD workflows.  
+The Chef cookbook to build Docker containers for CI/CD workflows. [![Build Status](https://travis-ci.org/Numergy/container-cookbook.svg)](https://travis-ci.org/Numergy/container-cookbook)  
 
 Usage
 -----
