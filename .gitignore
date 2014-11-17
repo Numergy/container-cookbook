@@ -6,3 +6,4 @@
 /.kitchen/
 /.kitchen.key
 /.kitchen.local.yml
+/dockerfiles/
