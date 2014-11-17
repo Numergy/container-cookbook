@@ -15,18 +15,18 @@
 require 'serverspec'
 set :backend, :exec
 
-bins = ['/root/.ndenv/shims/npm',
-        '/root/.ndenv/shims/node',
-        '/root/.ndenv/shims/bower',
-        '/root/.ndenv/shims/grunt',
-        '/root/.ndenv/versions/v0.10.26/bin/bower',
-        '/root/.ndenv/versions/v0.10.26/bin/grunt']
+bins = ['/opt/ndenv/shims/npm',
+        '/opt/ndenv/shims/node',
+        '/opt/ndenv/shims/bower',
+        '/opt/ndenv/shims/grunt',
+        '/opt/ndenv/versions/v0.10.26/bin/bower',
+        '/opt/ndenv/versions/v0.10.26/bin/grunt']
 
-describe file '/root/.ndenv/versions/v0.10.26' do
+describe file '/opt/ndenv/versions/v0.10.26' do
   it { should be_directory }
 end
 
-describe file '/root/.ndenv/version' do
+describe file '/opt/ndenv/version' do
   its(:content) { should match(/v0.10.26/) }
 end
 

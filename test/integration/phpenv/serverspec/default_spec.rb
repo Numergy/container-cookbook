@@ -15,6 +15,6 @@
 require 'serverspec'
 set :backend, :exec
 
-describe file('/root/.phpenv/version') do
+describe file('/opt/phpenv/version') do
   its(:content) { should match(/5.3.29/) }
 end

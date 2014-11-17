@@ -15,11 +15,11 @@
 require 'serverspec'
 set :backend, :exec
 
-bins = ['/root/.rbenv/shims/ruby',
-        '/root/.rbenv/shims/gem',
-        '/root/.rbenv/shims/bundler',
-        '/root/.rbenv/versions/1.9.3-p547/bin/bundler',
-        '/root/.rbenv/versions/2.0.0-p451/bin/bundler']
+bins = ['/opt/rbenv/shims/ruby',
+        '/opt/rbenv/shims/gem',
+        '/opt/rbenv/shims/bundler',
+        '/opt/rbenv/versions/1.9.3-p547/bin/bundler',
+        '/opt/rbenv/versions/2.0.0-p451/bin/bundler']
 
 bins.each do |command|
   describe file(command) do
@@ -28,6 +28,6 @@ bins.each do |command|
   end
 end
 
-describe file('/root/.rbenv/version') do
+describe file('/opt/rbenv/version') do
   its(:content) { should match(/1.9.3-p547/) }
 end
