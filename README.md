@@ -33,7 +33,7 @@ $ bundle exec berks vendor cookbooks
 $ vagrant up
 ...
 $ vagrant ssh
-vagrant> $ sudo su -
+vagrant@vagrant:~$ sudo su -
 root@vagrant:~# knife container docker init builder/ruby -r 'recipe[container::rbenv]' --cookbook-path /vagrant/cookbooks --dockerfiles-path /vagrant/dockerfiles -z --force
 root@vagrant:~# cp -r /vagrant/cookbooks/ /vagrant/dockerfiles/builder/ruby/chef/
 root@vagrant:~# knife container docker build builder/ruby --no-berks -z --dockerfiles /vagrant/dockerfiles/
@@ -49,13 +49,19 @@ builder/ruby        latest              f8290ef73660        7 minutes ago       
 
 ###### Running our container:  
 ```
-docker run -d builder/ruby
+root@vagrant:~# docker run -d builder/ruby
 bc48f4d6aa4dd55c8013572996626c9597395f5d7c57be3b30556029990c6112
 root@vagrant:~# docker ps
 CONTAINER ID        IMAGE                 COMMAND                CREATED             STATUS              PORTS               NAMES
 bc48f4d6aa4d        builder/ruby:latest   "chef-init --onboot"   6 seconds ago       Up 5 seconds                            cranky_mccarthy
 root@vagrant:~# docker exec bc48f4d6aa4d su -l root -c "rbenv versions"
 stdin: is not a tty
+* 1.9.3-p547 (set by /opt/rbenv/version)
+  2.0.0-p451
+```
+or
+```
+root@vagrant:~# docker run -t -i --entrypoint "/bin/bash" builder/ruby --login -c "rbenv versions"
 * 1.9.3-p547 (set by /opt/rbenv/version)
   2.0.0-p451
 ```
