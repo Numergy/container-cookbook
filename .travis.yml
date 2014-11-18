@@ -4,7 +4,7 @@ rvm:
 script:
 - bundle exec rake test:checkstyle
 - bundle exec rake test:specs
-- KITCHEN_YAML=.kitchen.cloud.yml bundle exec kitchen test --destroy=always
+# - KITCHEN_YAML=.kitchen.cloud.yml bundle exec kitchen test --destroy=always
 before_install:
 - openssl aes-256-cbc -K $encrypted_4a692cd77dc2_key -iv $encrypted_4a692cd77dc2_iv -in .kitchen.key.enc -out .kitchen.key -d
 env:
