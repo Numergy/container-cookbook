@@ -16,12 +16,12 @@
 # limitations under the License.
 #
 
-node.override['ndenv']['user'] = 'root'
-node.override['ndenv']['user_home'] = '/root/'
-node.override['ndenv']['group'] = 'root'
-node.override['ndenv']['manage_home'] = false
-node.override['ndenv']['installs'] = ['0.10.26']
-node.override['ndenv']['global'] = '0.10.26'
+node.default['ndenv']['user'] = 'root'
+node.default['ndenv']['user_home'] = '/root/'
+node.default['ndenv']['group'] = 'root'
+node.default['ndenv']['manage_home'] = false
+node.default['ndenv']['installs'] = ['0.10.26']
+node.default['ndenv']['global'] = '0.10.26'
 
 include_recipe 'container'
 include_recipe 'ndenv'
