@@ -7,3 +7,4 @@
 /.kitchen.key
 /.kitchen.local.yml
 /dockerfiles/
+/.project
