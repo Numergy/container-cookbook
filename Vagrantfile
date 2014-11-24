@@ -25,7 +25,6 @@ Vagrant::configure('2') do | config |
     builder.vm.network :public_network
 
     builder.vm.provider 'virtualbox' do |v|
-      v.gui = true
       v.customize ['modifyvm', :id, '--name', 'container-builder']
       v.customize ['modifyvm', :id, '--memory', 2048]
     end
