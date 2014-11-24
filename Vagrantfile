@@ -13,10 +13,10 @@
 # limitations under the License.
 #
 
-Vagrant::configure('2') do | config |
-
+Vagrant::configure('2') do |config|
   config.ssh.forward_agent = true
-  config.vm.define 'container-builder' do | builder |
+
+  config.vm.define 'container-builder' do |builder|
     builder.ssh.username = 'vagrant'
 
     builder.vm.box = 'ubuntu-14.04'
@@ -29,9 +29,10 @@ Vagrant::configure('2') do | config |
       v.customize ['modifyvm', :id, '--memory', 2048]
     end
 
-    builder.vm.provision :shell, inline: 'wget -O - https://www.opscode.com/chef/install.sh | sudo bash'
-    builder.vm.provision :chef_solo do | chef |
+    builder.vm.provision :shell, inline: 'if ! type "chef-solo"; then wget -O - https://www.opscode.com/chef/install.sh | sudo bash; fi'
+    builder.vm.provision :chef_solo do |chef|
       chef.cookbooks_path = ['cookbooks']
+      chef.add_recipe('container')
       chef.add_recipe('container::builder')
     end
   end
