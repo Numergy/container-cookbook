@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Cookbook Name:: container
-# Recipe:: pyenv
+# Attribute:: pyenv
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,18 +16,6 @@
 # limitations under the License.
 #
 
-node.default['pyenv']['pythons'] = node['container']['pyenv']['versions']
-node.default['pyenv']['global'] = node['container']['pyenv']['global']
-
-include_recipe 'container'
-include_recipe 'pyenv::system'
-
-node['pyenv']['pythons'].each do |python_version|
-  node['container']['pyenv']['packages'].each do |python_package|
-    pyenv_script "install-#{python_package}-on-#{python_version}" do
-      pyenv_version python_version
-      code %(pip install --upgrade #{python_package})
-    end
-  end
-  pyenv_rehash "rehash-#{python_version}"
-end
+node.default['container']['pyenv']['versions'] = ['2.7.6', '3.3.3']
+node.default['container']['pyenv']['global'] = '2.7.6'
+node.default['container']['pyenv']['packages'] = ['tox']

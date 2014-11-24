@@ -26,5 +26,8 @@ package 'libreadline-dev'
 
 include_recipe 'phpenv'
 
-phpenv_build '5.3.29'
-phpenv_global '5.3.29'
+node['container']['phpenv']['versions'].each do |php_version|
+  phpenv_build php_version
+end
+
+phpenv_global node['container']['phpenv']['global']

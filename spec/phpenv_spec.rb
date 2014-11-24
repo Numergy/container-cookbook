@@ -15,7 +15,12 @@
 require_relative 'spec_helper'
 
 describe 'container::phpenv' do
-  subject { ChefSpec::Runner.new.converge(described_recipe) }
+  let(:subject) do
+    ChefSpec::Runner.new do |node|
+      node.set['container']['phpenv']['versions'] = ['5.3.29', '5.4.2']
+      node.set['container']['phpenv']['global'] = '5.3.29'
+    end.converge described_recipe
+  end
 
   it 'does include default recipe' do
     expect(subject).to include_recipe('container')
@@ -31,6 +36,7 @@ describe 'container::phpenv' do
 
   it 'should install php' do
     expect(subject).to run_phpenv_build('5.3.29')
+    expect(subject).to run_phpenv_build('5.4.2')
     expect(subject).to create_phpenv_global('5.3.29')
   end
 end

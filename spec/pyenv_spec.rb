@@ -15,7 +15,13 @@
 require_relative 'spec_helper'
 
 describe 'container::pyenv' do
-  subject { ChefSpec::Runner.new.converge(described_recipe) }
+  let(:subject) do
+    ChefSpec::Runner.new do |node|
+      node.set['container']['pyenv']['versions'] = ['2.7.6', '3.3.3', '3.4-dev']
+      node.set['container']['pyenv']['global'] = '3.3.3'
+      node.set['container']['pyenv']['packages'] = ['tox']
+    end.converge described_recipe
+  end
 
   it 'does include default recipe' do
     expect(subject).to include_recipe('container')
@@ -26,7 +32,7 @@ describe 'container::pyenv' do
   end
 
   it 'install pip packages' do
-    %w(2.7.6 3.3.3).each do |python_version|
+    ['2.7.6', '3.3.3', '3.4-dev'].each do |python_version|
       expect(subject).to run_pyenv_rehash("rehash-#{python_version}")
       expect(subject).to run_pyenv_script("install-tox-on-#{python_version}")
         .with(pyenv_version: python_version)

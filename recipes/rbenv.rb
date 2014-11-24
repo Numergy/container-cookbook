@@ -24,19 +24,19 @@ include_recipe 'container'
 include_recipe 'rbenv'
 include_recipe 'rbenv::ruby_build'
 
-global_version = '1.9.3-p547'
-
 gem_package 'bundler' do
   action :install
 end
 
-%w(1.9.3-p547 2.0.0-p451).each do |rb_version|
+node['container']['rbenv']['versions'].each do |rb_version|
   rbenv_ruby rb_version do
-    global rb_version == global_version
+    global rb_version == node['container']['rbenv']['global']
   end
 
-  rbenv_gem "install-bundler-on-#{rb_version}" do
-    package_name 'bundler'
-    ruby_version rb_version
+  node['container']['rbenv']['packages'].each do |rb_package|
+    rbenv_gem "install-#{rb_package}-on-#{rb_version}" do
+      package_name rb_package
+      ruby_version rb_version
+    end
   end
 end
