@@ -30,6 +30,11 @@ describe 'container::phpenv' do
     expect(subject).to install_package('libreadline-dev')
   end
 
+  it 'does create symlink with execute command' do
+    expect(subject).to run_execute('link-libraries')
+      .with(command: 'ln -s /usr/lib/x86_64-linux-gnu/ /usr/lib64')
+  end
+
   it 'does includes phpenv recipe' do
     expect(subject).to include_recipe('phpenv')
   end

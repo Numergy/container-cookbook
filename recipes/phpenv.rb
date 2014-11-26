@@ -22,7 +22,9 @@ node.default['phpenv']['user_home'] = '/root/'
 
 include_recipe 'container'
 
-package 'libreadline-dev'
+execute 'link-libraries' do
+  command 'ln -s /usr/lib/x86_64-linux-gnu/ /usr/lib64'
+end
 
 include_recipe 'phpenv'
 
