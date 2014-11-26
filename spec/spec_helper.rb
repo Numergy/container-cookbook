@@ -16,7 +16,7 @@ require 'chefspec'
 require 'chefspec/berkshelf'
 
 ChefSpec::Coverage.start! do
-  add_filter(/container/)
+  add_filter('container')
 end
 
 require 'chef/application'
