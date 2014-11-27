@@ -16,5 +16,5 @@
 # limitations under the License.
 #
 
-node.default['container']['phpenv']['versions'] = ['5.3.29']
+node.default['container']['phpenv']['versions'] = ['5.3.29', '5.4.35', '5.5.19']
 node.default['container']['phpenv']['global'] = '5.3.29'
