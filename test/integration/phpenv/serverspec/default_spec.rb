@@ -15,6 +15,18 @@
 require 'serverspec'
 set :backend, :exec
 
+describe file('/opt/phpenv/versions/5.3.29') do
+  it { should be_directory }
+end
+
+describe file('/opt/phpenv/versions/5.4.35') do
+  it { should be_directory }
+end
+
+describe file('/opt/phpenv/versions/5.5.19') do
+  it { should be_directory }
+end
+
 describe file('/opt/phpenv/version') do
   its(:content) { should match(/5.3.29/) }
 end
