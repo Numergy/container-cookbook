@@ -19,7 +19,7 @@ describe 'container::rbenv' do
     ChefSpec::Runner.new do |node|
       node.set['container']['rbenv']['versions'] = ['1.9.3-p547',
                                                     '2.0.0-p451',
-                                                    '2.1.2']
+                                                    '2.1.0']
       node.set['container']['rbenv']['global'] = '1.9.3-p547'
       node.set['container']['rbenv']['packages'] = ['bundler']
     end.converge described_recipe
@@ -37,7 +37,7 @@ describe 'container::rbenv' do
   it 'install rbenv' do
     expect(subject).to install_gem_package('bundler')
 
-    ['1.9.3-p547', '2.0.0-p451', '2.1.2'].each do |ruby_version|
+    ['1.9.3-p547', '2.0.0-p451', '2.1.0'].each do |ruby_version|
       expect(subject).to install_rbenv_ruby(ruby_version)
       expect(subject).to install_rbenv_gem("install-bundler-on-#{ruby_version}")
         .with(package_name: 'bundler',
