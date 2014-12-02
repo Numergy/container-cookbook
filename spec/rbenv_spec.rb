@@ -39,7 +39,8 @@ describe 'container::rbenv' do
       expect(subject).to install_rbenv_ruby(ruby_version)
         .with(global: ruby_version == '2.0.0-p451')
       %w(gemirro bundler).each do |pkg|
-        expect(subject).to install_rbenv_gem("install-#{pkg}-on-#{ruby_version}")
+        expect(subject)
+          .to install_rbenv_gem("install-#{pkg}-on-#{ruby_version}")
           .with(package_name: pkg,
                 ruby_version: ruby_version)
       end
