@@ -24,10 +24,6 @@ include_recipe 'container'
 include_recipe 'rbenv'
 include_recipe 'rbenv::ruby_build'
 
-gem_package 'bundler' do
-  action :install
-end
-
 node['container']['rbenv']['versions'].each do |rb_version|
   rbenv_ruby rb_version do
     global rb_version == node['container']['rbenv']['global']
