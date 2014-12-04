@@ -20,6 +20,7 @@ bins = ['/opt/rbenv/shims/ruby',
         '/opt/rbenv/shims/bundler',
         '/opt/rbenv/versions/1.9.3-p547/bin/bundler',
         '/opt/rbenv/versions/2.0.0-p598/bin/bundler',
+        '/opt/rbenv/versions/2.1.0/bin/bundler',
         '/opt/rbenv/versions/2.1.5/bin/bundler']
 
 bins.each do |command|

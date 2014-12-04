@@ -58,6 +58,7 @@ root@vagrant:~# docker exec bc48f4d6aa4d su -l root -c "rbenv versions"
 stdin: is not a tty
 * 1.9.3-p547 (set by /opt/rbenv/version)
   2.0.0-p598
+  2.1.0
   2.1.5
 ```
 or
@@ -65,6 +66,7 @@ or
 root@vagrant:~# docker run -t -i --entrypoint "/bin/bash" builder/ruby --login -c "rbenv versions"
 * 1.9.3-p547 (set by /opt/rbenv/version)
   2.0.0-p598
+  2.1.0
   2.1.5
 ```
 
