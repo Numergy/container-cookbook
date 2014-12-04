@@ -50,3 +50,5 @@ namespace :test do
     bundle_exec 'kitchen test'
   end
 end
+
+task default: ['test:checkstyle', 'test:specs']
