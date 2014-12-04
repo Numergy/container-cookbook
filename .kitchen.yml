@@ -24,8 +24,6 @@ suites:
   - name: rbenv
     run_list:
       - recipe[container::rbenv]
-    excludes:
-      - ubuntu-14.04
   - name: builder
     run_list:
       - recipe[container::builder]
