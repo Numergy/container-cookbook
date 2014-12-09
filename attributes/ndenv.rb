@@ -16,6 +16,9 @@
 # limitations under the License.
 #
 
-node.default['container']['ndenv']['versions'] = ['0.10.26']
-node.default['container']['ndenv']['global'] = '0.10.26'
-node.default['container']['ndenv']['packages'] = ['grunt', 'grunt-cli', 'bower']
+node.default['container']['ndenv']['versions'] = ['0.8.28',
+                                                  '0.9.12',
+                                                  '0.10.33',
+                                                  '0.11.14']
+node.default['container']['ndenv']['global'] = '0.10.33'
+node.default['container']['ndenv']['packages'] = []
