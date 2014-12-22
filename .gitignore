@@ -8,3 +8,4 @@
 /.kitchen.local.yml
 /dockerfiles/
 /.project
+/.ruby-version
