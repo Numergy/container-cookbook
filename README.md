@@ -1,34 +1,38 @@
-Container Cookbook
-==================
-The Chef cookbook to build Docker containers for CI/CD workflows. [![Build Status](https://travis-ci.org/Numergy/container-cookbook.svg)](https://travis-ci.org/Numergy/container-cookbook)  
+# Container Cookbook
 
-Usage
------
-This cookbook provides some recipes to init and build containers.  
 
-Provided recipes are:  
-- ndenv  
-- phpenv  
-- pyenv  
-- rbenv  
+The Chef cookbook to build Docker containers for CI/CD workflows. [![Build Status](https://travis-ci.org/Numergy/container-cookbook.svg)](https://travis-ci.org/Numergy/container-cookbook)
 
-Building containers
--------------------
-The `builder` recipe can be used to spawn a builder vm, this recipe install all requirements to work with `knife-container`.  
+## Usage
+
+This cookbook provides some recipes to init and build containers.
+
+Provided recipes are:
+
+- ndenv
+- phpenv
+- pyenv
+- rbenv
+
+## Building containers
+
+The `builder` recipe can be used to spawn a builder vm, this recipe install all requirements to work with `knife-container`.
 If you are a vagrant user, you can use the `Vagrantfile` at the root of the repository, it will create an Ubuntu 14.04 and apply
-`container::builder` recipe.  
+`container::builder` recipe.
 
-After vm converged, you can ssh and play with `knife container` commands.  
+After vm converged, you can ssh and play with `knife container` commands.
 
-##### Example to build a ruby container:  
+##### Example to build a ruby container:
 
-###### First, install dependencies:  
+###### First, install dependencies:
+
 ```
 $ bundle install
 $ bundle exec berks vendor cookbooks
 ```
 
-###### And run vagrant:  
+###### And run vagrant:
+
 ```
 $ vagrant up
 ...
@@ -39,7 +43,8 @@ root@vagrant:~# cp -r /vagrant/cookbooks/ /vagrant/dockerfiles/builder/ruby/chef
 root@vagrant:~# knife container docker build builder/ruby --no-berks -z --dockerfiles /vagrant/dockerfiles/
 ```
 
-###### You now have a docker image:  
+###### You now have a docker image:
+
 ```
 root@vagrant:~# docker images
 REPOSITORY          TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
@@ -47,7 +52,8 @@ builder/ruby        latest              f8290ef73660        7 minutes ago       
 ...
 ```
 
-###### Running our container:  
+###### Running our container:
+
 ```
 root@vagrant:~# docker run -d builder/ruby
 bc48f4d6aa4dd55c8013572996626c9597395f5d7c57be3b30556029990c6112
@@ -61,7 +67,9 @@ stdin: is not a tty
   2.1.0
   2.1.5
 ```
+
 or
+
 ```
 root@vagrant:~# docker run -t -i --entrypoint "/bin/bash" builder/ruby --login -c "rbenv versions"
 * 1.9.3-p547 (set by /opt/rbenv/version)
@@ -72,14 +80,15 @@ root@vagrant:~# docker run -t -i --entrypoint "/bin/bash" builder/ruby --login -
 
 More info about containers with chef: https://docs.getchef.com/containers.html
 
-License and Authors
--------------------
+## License and Authors
+
 Authors:
+
 - Antoine Rouyer <antoine.rouyer@numergy.com>
+- Pierre Rambaud <pierre.rambaud@numergy.com>
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
     http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
-
