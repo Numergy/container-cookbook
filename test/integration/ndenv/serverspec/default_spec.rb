@@ -16,18 +16,19 @@ require 'serverspec'
 set :backend, :exec
 
 bins = ['/opt/ndenv/shims/npm',
-        '/opt/ndenv/shims/node',
-        '/opt/ndenv/shims/bower',
-        '/opt/ndenv/shims/grunt',
-        '/opt/ndenv/versions/v0.10.26/bin/bower',
-        '/opt/ndenv/versions/v0.10.26/bin/grunt']
+        '/opt/ndenv/shims/node']
 
-describe file '/opt/ndenv/versions/v0.10.26' do
-  it { should be_directory }
+['0.8.28',
+ '0.9.12',
+ '0.10.33',
+ '0.11.14'].each do |version|
+  describe file "/opt/ndenv/versions/v#{version}" do
+    it { should be_directory }
+  end
 end
 
 describe file '/opt/ndenv/version' do
-  its(:content) { should match(/v0.10.26/) }
+  its(:content) { should match(/v0.10.33/) }
 end
 
 bins.each do |command|
