@@ -41,3 +41,6 @@ suites:
       - recipe[container::builder]
     excludes:
       - ubuntu-12.04
+  - name: jenv
+    run_list:
+      - recipe[container::jenv]
