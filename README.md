@@ -13,6 +13,7 @@ Provided recipes are:
 - phpenv
 - pyenv
 - rbenv
+- jenv
 
 ## Building containers
 
