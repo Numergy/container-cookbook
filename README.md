@@ -23,16 +23,35 @@ If you are a vagrant user, you can use the `Vagrantfile` at the root of the repo
 
 After vm converged, you can ssh and play with `knife container` commands.
 
-##### Example to build a ruby container:
+### Example to build a ruby container:
 
-###### First, install dependencies:
+#### With Rake
+
+This method only works if you have docker installed on your system.
+
+```
+$ bundle install
+$ bundle exec rake container:prepare_ruby #-> or simply `prepare` to prepare all containers
+$ bundle exec rake container:create_ruby #-> or simply `create` to create all containers
+$ bundle exec rake container:deploy_ruby[my_registry.com] #-> or simply `deploy` to deploy container to `my_registry.com`
+```
+
+It's also possible to directory prepare, create and deploy all containers.
+
+```
+$ bundle install
+$ bundle exec rake container:all[my_registry.com]
+```
+
+
+#### With vagrant
 
 ```
 $ bundle install
 $ bundle exec berks vendor cookbooks
 ```
 
-###### And run vagrant:
+##### And run vagrant:
 
 ```
 $ vagrant up

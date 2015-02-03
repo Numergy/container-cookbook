@@ -1,6 +1,7 @@
 AllCops:
   Include:
     - metadata.rb
+    - Rakefile
     - '**/Gemfile'
     - attributes/**/*
     - definitions/**/*
