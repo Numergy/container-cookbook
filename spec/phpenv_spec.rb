@@ -16,7 +16,7 @@ require_relative 'spec_helper'
 
 describe 'container::phpenv' do
   let(:subject) do
-    ChefSpec::Runner.new do |node|
+    ChefSpec::SoloRunner.new do |node|
       node.set['container']['phpenv']['versions'] = ['5.3.29', '5.4.2']
       node.set['container']['phpenv']['global'] = '5.3.29'
     end.converge described_recipe

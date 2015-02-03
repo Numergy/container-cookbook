@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-gem 'chef', '~> 11.12.2'
+gem 'chef', '~> 12'
 gem 'berkshelf'
 
 group :integration do
@@ -14,4 +14,5 @@ group :integration do
   gem 'serverspec'
   gem 'chefspec'
   gem 'foodcritic'
+  gem 'knife-container'
 end

@@ -16,7 +16,7 @@ require_relative 'spec_helper'
 
 describe 'container::rbenv' do
   let(:subject) do
-    ChefSpec::Runner.new do |node|
+    ChefSpec::SoloRunner.new do |node|
       node.set['container']['rbenv']['versions'] = ['1.9.3-p547',
                                                     '2.0.0-p598',
                                                     '2.1.0-rc1']

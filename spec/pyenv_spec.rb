@@ -16,7 +16,7 @@ require_relative 'spec_helper'
 
 describe 'container::pyenv' do
   let(:subject) do
-    ChefSpec::Runner.new do |node|
+    ChefSpec::SoloRunner.new do |node|
       node.set['container']['pyenv']['versions'] = ['2.7.6', '3.3.3', '3.4-dev']
       node.set['container']['pyenv']['global'] = '3.3.3'
       node.set['container']['pyenv']['packages'] = ['tox']

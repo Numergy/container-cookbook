@@ -16,7 +16,7 @@ require_relative 'spec_helper'
 
 describe 'container::jenv' do
   let(:subject) do
-    ChefSpec::Runner.new do |node|
+    ChefSpec::SoloRunner.new do |node|
       node.set['container']['jenv']['versions'] = ['42']
       node.set['container']['jenv']['plugins']['enable'] = ['groovy']
       node.set['container']['jenv']['plugins']['disable'] = ['maven']

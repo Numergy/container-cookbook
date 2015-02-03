@@ -16,7 +16,7 @@ require_relative 'spec_helper'
 
 describe 'container::ndenv' do
   let(:subject) do
-    ChefSpec::Runner.new do |node|
+    ChefSpec::SoloRunner.new do |node|
       node.set['container']['ndenv']['versions'] = ['0.10.26', '0.10.33']
       node.set['container']['ndenv']['global'] = '0.10.26'
       node.set['container']['ndenv']['packages'] = ['grunt', 'grunt-cli']
