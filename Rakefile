@@ -88,7 +88,9 @@ namespace :container  do
       end
     end
 
-    multitask parallel_deploy: h.map { |name, _recipe| "deploy_#{name}_m".to_sym }
+    multitask parallel_deploy: h.map do |name, _recipe|
+      "deploy_#{name}_m".to_sym
+    end
     Rake::MultiTask[:parallel_deploy].invoke
   end
 
