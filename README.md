@@ -36,7 +36,7 @@ $ bundle exec rake container:create_ruby #-> or simply `create` to create all co
 $ bundle exec rake container:deploy_ruby[my_registry.com] #-> or simply `deploy` to deploy container to `my_registry.com`
 ```
 
-It's also possible to directory prepare, create and deploy all containers.
+It's also possible to directly prepare, create and deploy all containers.
 
 ```
 $ bundle install
