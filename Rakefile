@@ -68,6 +68,13 @@ namespace :container  do
       sh "knife container docker build builder/#{name} --no-berks" \
       " -z --dockerfiles #{current_dir}/dockerfiles/"
     end
+
+    task "deploy_#{name}".to_sym, [:repository] do |_t, args|
+      repository = "#{args[:repository]}/" unless args[:repository].nil?
+      sh "docker tag -f $(docker images | grep builder/#{name} | " \
+      "grep latest | awk '{ print $3 }') #{repository}#{name}-builder"
+      sh "docker push #{repository}#{name}-builder"
+    end
   end
 
   multitask prepare: h.map { |name, _recipe| "prepare_#{name}".to_sym }
@@ -76,14 +83,12 @@ namespace :container  do
   task :deploy, [:repository] do |_t, args|
     repository = "#{args[:repository]}/" unless args[:repository].nil?
     h.each do |name, _recipe|
-      task "deploy_#{name}" do
-        sh "docker tag -f $(docker images | grep builder/#{name} | " \
-        "grep latest | awk '{ print $3 }') #{repository}#{name}-builder"
-        sh "docker push #{repository}#{name}-builder"
+      task "deploy_#{name}_m".to_sym do
+        Rake::Task["container:deploy_#{name}".to_sym].invoke(repository)
       end
     end
 
-    multitask parallel_deploy: h.map { |name, _recipe| "deploy_#{name}".to_sym }
+    multitask parallel_deploy: h.map { |name, _recipe| "deploy_#{name}_m".to_sym }
     Rake::MultiTask[:parallel_deploy].invoke
   end
 
