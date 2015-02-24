@@ -81,16 +81,15 @@ namespace :container  do
   multitask create: h.map { |name, _recipe| "create_#{name}".to_sym }
 
   task :deploy, [:repository] do |_t, args|
-    repository = "#{args[:repository]}/" unless args[:repository].nil?
+    repository = "#{args[:repository]}" unless args[:repository].nil?
     h.each do |name, _recipe|
       task "deploy_#{name}_m".to_sym do
         Rake::Task["container:deploy_#{name}".to_sym].invoke(repository)
       end
     end
 
-    multitask parallel_deploy: h.map do |name, _recipe|
-      "deploy_#{name}_m".to_sym
-    end
+    multitask parallel_deploy:
+      h.map { |name, _recipe| "deploy_#{name}_m".to_sym }
     Rake::MultiTask[:parallel_deploy].invoke
   end
 

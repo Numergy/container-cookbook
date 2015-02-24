@@ -24,4 +24,8 @@ describe 'container::default' do
   it 'does include build-essential recipe' do
     expect(subject).to include_recipe('build-essential')
   end
+
+  it 'does include locale recipe' do
+    expect(subject).to include_recipe('locale')
+  end
 end
