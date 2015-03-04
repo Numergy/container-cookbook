@@ -19,6 +19,8 @@ describe 'container::phpenv' do
     ChefSpec::SoloRunner.new do |node|
       node.set['container']['phpenv']['versions'] = ['5.3.29', '5.4.2']
       node.set['container']['phpenv']['global'] = '5.3.29'
+      node.set['container']['phpenv']['pyrus_extensions'] = ['pecl/my_package']
+      node.set['container']['phpenv']['pear_extensions'] = ['pecl/phpcs']
     end.converge described_recipe
   end
 
@@ -28,16 +30,38 @@ describe 'container::phpenv' do
 
   it 'does create symlink with execute command' do
     expect(subject).to run_execute('link-libraries')
-      .with(command: 'ln -s /usr/lib/x86_64-linux-gnu/ /usr/lib64')
+      .with(command: 'ln -sf /usr/lib/x86_64-linux-gnu/ /usr/lib64')
   end
 
   it 'does includes phpenv recipe' do
     expect(subject).to include_recipe('phpenv')
   end
 
-  it 'should install php' do
-    expect(subject).to run_phpenv_build('5.3.29')
-    expect(subject).to run_phpenv_build('5.4.2')
+  it 'should install php versions' do
+    %w(5.3.29 5.4.2).each do |php_version|
+      expect(subject).to run_phpenv_build(php_version)
+      expect(subject).to create_cookbook_file("ci-#{php_version}.ini")
+        .with(source: 'php/ci.ini',
+              path: "/opt/phpenv/versions/#{php_version}/etc/conf.d/ci.ini")
+      expect(subject).to run_execute("move-directory-#{php_version}")
+        .with(command: "mv /opt/phpenv/versions/#{php_version}/bin/ " \
+              "/opt/phpenv/versions/#{php_version}/.old-bin;mv " \
+              "/opt/phpenv/versions/#{php_version}/.old-bin/ " \
+              "/opt/phpenv/versions/#{php_version}/bin")
+      expect(subject)
+        .to run_phpenv_script("install-pyrus-pecl/my_package-#{php_version}")
+        .with(phpenv_version: php_version,
+              code: 'pyrus install pecl/my_package')
+      expect(subject).to run_phpenv_script("pecl-config-#{php_version}")
+        .with(phpenv_version: php_version,
+              code: 'pear config-set php_ini /opt/phpenv/versions' \
+              "/#{php_version}/etc/php.ini")
+      expect(subject)
+        .to run_phpenv_script("install-pear-pecl/phpcs-#{php_version}")
+        .with(phpenv_version: php_version,
+              code: 'pear install -f pecl/phpcs')
+    end
+
     expect(subject).to create_phpenv_global('5.3.29')
   end
 end
