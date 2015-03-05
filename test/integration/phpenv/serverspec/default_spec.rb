@@ -15,16 +15,14 @@
 require 'serverspec'
 set :backend, :exec
 
-describe file('/opt/phpenv/versions/5.3.29') do
-  it { should be_directory }
-end
+['5.3.29', '5.4.35', '5.5.19'].each do |php_version|
+  describe file("/opt/phpenv/versions/#{php_version}") do
+    it { should be_directory }
+  end
 
-describe file('/opt/phpenv/versions/5.4.35') do
-  it { should be_directory }
-end
-
-describe file('/opt/phpenv/versions/5.5.19') do
-  it { should be_directory }
+  describe file("/opt/phpenv/versions/#{php_version}/bin/pear") do
+    it { should be_file }
+  end
 end
 
 describe file('/opt/phpenv/version') do
