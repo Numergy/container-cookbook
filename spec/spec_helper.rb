@@ -25,3 +25,12 @@ RSpec.configure do |config|
   config.platform = 'ubuntu'
   config.version = '14.04'
 end
+
+shared_context '#phpstubs' do
+  before do
+    stub_command("[ -z \"$(pyrus list-packages | grep 'my_package')\" ]")
+      .and_return(false)
+    stub_command("[ -z \"$(pyrus list-packages | grep 'phpcs')\" ]")
+      .and_return(false)
+  end
+end

@@ -15,6 +15,8 @@
 require_relative 'spec_helper'
 
 describe 'container::phpenv' do
+  include_context '#phpstubs'
+
   let(:subject) do
     ChefSpec::SoloRunner.new do |node|
       node.set['container']['phpenv']['versions'] = ['5.3.29', '5.4.2']
@@ -43,11 +45,8 @@ describe 'container::phpenv' do
       expect(subject).to create_cookbook_file("ci-#{php_version}.ini")
         .with(source: 'php/ci.ini',
               path: "/opt/phpenv/versions/#{php_version}/etc/conf.d/ci.ini")
-      expect(subject).to run_execute("move-directory-#{php_version}")
-        .with(command: "mv /opt/phpenv/versions/#{php_version}/bin/ " \
-              "/opt/phpenv/versions/#{php_version}/.old-bin;mv " \
-              "/opt/phpenv/versions/#{php_version}/.old-bin/ " \
-              "/opt/phpenv/versions/#{php_version}/bin")
+      expect(subject).to run_execute("touch-directory-#{php_version}")
+        .with(command: "touch /opt/phpenv/versions/#{php_version}/bin/")
       expect(subject)
         .to run_phpenv_script("install-pyrus-pecl/my_package-#{php_version}")
         .with(phpenv_version: php_version,

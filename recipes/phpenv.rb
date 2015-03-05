@@ -38,17 +38,16 @@ node['container']['phpenv']['versions'].each do |php_version|
   end
 
   # Move directory to fix bug with docker aufs
-  execute "move-directory-#{php_version}" do
-    command("mv #{node['phpenv']['root_path']}/versions/#{php_version}/bin/" \
-            " /opt/phpenv/versions/#{php_version}/.old-bin;" \
-            "mv #{node['phpenv']['root_path']}/versions/#{php_version}/" \
-            ".old-bin/ /opt/phpenv/versions/#{php_version}/bin")
+  execute "touch-directory-#{php_version}" do
+    command("touch #{node['phpenv']['root_path']}/versions/#{php_version}/bin/")
   end
 
   node['container']['phpenv']['pyrus_extensions'].each do |extension|
     phpenv_script "install-pyrus-#{extension}-#{php_version}" do
       phpenv_version php_version
       code "pyrus install #{extension}"
+      not_if '[ -z "$(pyrus list-packages | ' \
+      "grep '#{extension.gsub(%r{(?:[^/]*/)?([^-]*).*}, '\1')}')\" ]"
     end
   end
 
@@ -62,6 +61,8 @@ node['container']['phpenv']['versions'].each do |php_version|
     phpenv_script "install-pear-#{extension}-#{php_version}" do
       phpenv_version php_version
       code "pear install -f #{extension}"
+      not_if '[ -z "$(pyrus list-packages | ' \
+      "grep '#{extension.gsub(%r{(?:[^/]*/)?([^-]*).*}, '\1')}')\" ]"
     end
   end
 end
