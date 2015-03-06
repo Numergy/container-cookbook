@@ -58,7 +58,7 @@ describe 'container::phpenv' do
       expect(subject)
         .to run_phpenv_script("install-pear-pecl/phpcs-#{php_version}")
         .with(phpenv_version: php_version,
-              code: 'pear install -f pecl/phpcs')
+              code: 'pear install pecl/phpcs')
     end
 
     expect(subject).to create_phpenv_global('5.3.29')

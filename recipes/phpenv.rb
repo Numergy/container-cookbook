@@ -46,8 +46,9 @@ node['container']['phpenv']['versions'].each do |php_version|
     phpenv_script "install-pyrus-#{extension}-#{php_version}" do
       phpenv_version php_version
       code "pyrus install #{extension}"
-      not_if '[ -z "$(pyrus list-packages | ' \
-      "grep '#{extension.gsub(%r{(?:[^/]*/)?([^-]*).*}, '\1')}')\" ]"
+      only_if('[ -z "$(./pyrus list-packages | ' \
+             "egrep '^#{extension.gsub(%r{(?:[^/]*/)?([^-]*).*}, '\1')} ')\" ]",
+              cwd: "#{node['phpenv']['root_path']}/versions/#{php_version}/bin")
     end
   end
 
@@ -60,9 +61,10 @@ node['container']['phpenv']['versions'].each do |php_version|
   node['container']['phpenv']['pear_extensions'].each do |extension|
     phpenv_script "install-pear-#{extension}-#{php_version}" do
       phpenv_version php_version
-      code "pear install -f #{extension}"
-      not_if '[ -z "$(pyrus list-packages | ' \
-      "grep '#{extension.gsub(%r{(?:[^/]*/)?([^-]*).*}, '\1')}')\" ]"
+      code "pear install #{extension}"
+      only_if('[ -z "$(./pear list -a | ' \
+             "egrep '^#{extension.gsub(%r{(?:[^/]*/)?([^-]*).*}, '\1')} ')\" ]",
+              cwd: "#{node['phpenv']['root_path']}/versions/#{php_version}/bin")
     end
   end
 end
