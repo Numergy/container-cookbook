@@ -30,14 +30,14 @@ include_recipe 'phpenv'
 
 node['container']['phpenv']['versions'].each do |php_version|
   phpenv_build php_version
-  cookbook_file "ci-#{php_version}.ini" do
-    source 'php/ci.ini'
+  template "ci-#{php_version}.ini" do
+    source 'php/ci.ini.erb'
     path("#{node['phpenv']['root_path']}/" \
          "versions/#{php_version}/etc/conf.d/ci.ini")
     action :create
   end
 
-  # Move directory to fix bug with docker aufs
+  # Touch directory to fix bug with docker aufs
   execute "touch-directory-#{php_version}" do
     command("touch #{node['phpenv']['root_path']}/versions/#{php_version}/bin/")
   end

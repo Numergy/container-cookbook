@@ -42,8 +42,8 @@ describe 'container::phpenv' do
   it 'should install php versions' do
     %w(5.3.29 5.4.2).each do |php_version|
       expect(subject).to run_phpenv_build(php_version)
-      expect(subject).to create_cookbook_file("ci-#{php_version}.ini")
-        .with(source: 'php/ci.ini',
+      expect(subject).to create_template("ci-#{php_version}.ini")
+        .with(source: 'php/ci.ini.erb',
               path: "/opt/phpenv/versions/#{php_version}/etc/conf.d/ci.ini")
       expect(subject).to run_execute("touch-directory-#{php_version}")
         .with(command: "touch /opt/phpenv/versions/#{php_version}/bin/")
