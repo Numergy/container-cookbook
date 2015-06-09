@@ -27,6 +27,10 @@ describe 'container::ndenv' do
     expect(subject).to include_recipe('container')
   end
 
+  it 'should install openjdk' do
+    expect(subject).to install_package('openjdk-7-jre-headless')
+  end
+
   it 'does includes ndenv recipes' do
     expect(subject).to include_recipe('ndenv::default')
     expect(subject).to include_recipe('ndenv::install')
