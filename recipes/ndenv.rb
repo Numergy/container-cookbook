@@ -24,8 +24,11 @@ node.default['ndenv']['installs'] = node['container']['ndenv']['versions']
 node.default['ndenv']['global'] = node['container']['ndenv']['global']
 
 include_recipe 'container'
+include_recipe 'chrome'
+include_recipe 'xvfb'
 include_recipe 'ndenv'
 include_recipe 'ndenv::install'
+package 'openjdk-7-jre-headless' # Selenium requirements
 
 node['ndenv']['installs'].each do |node_version|
   node['container']['ndenv']['packages'].each do |npm_pkg|

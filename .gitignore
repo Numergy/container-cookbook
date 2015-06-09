@@ -9,3 +9,6 @@
 /dockerfiles/
 /.project
 /.ruby-version
+/clients
+/nodes
+/.chef/local-mode-cache/

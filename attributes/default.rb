@@ -18,3 +18,5 @@
 
 override['locale']['lang'] = 'en_US.UTF-8'
 override['locale']['lc_all'] = 'en_US.UTF-8'
+
+override['xvfb']['display'] = ':99.0'
