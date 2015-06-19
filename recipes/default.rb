@@ -19,3 +19,7 @@
 include_recipe 'apt'
 include_recipe 'build-essential'
 include_recipe 'locale'
+
+node['container']['packages'].each do |pkg|
+  package pkg
+end
