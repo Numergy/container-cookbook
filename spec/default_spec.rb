@@ -28,4 +28,8 @@ describe 'container::default' do
   it 'does include locale recipe' do
     expect(subject).to include_recipe('locale')
   end
+
+  it 'does install packege curl' do
+    expect(subject).to install_package('curl')
+  end
 end
