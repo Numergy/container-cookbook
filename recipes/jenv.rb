@@ -16,10 +16,6 @@
 # limitations under the License.
 #
 
-node.default['jenv']['user'] = 'root'
-node.default['jenv']['group'] = 'root'
-node.default['jenv']['user_home'] = '/root/'
-
 include_recipe 'container'
 include_recipe 'jenv'
 

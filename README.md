@@ -17,6 +17,8 @@ Provided recipes are:
 
 ### Example to build a container:
 
+#### With Rake
+
 This method only works if you have docker installed on your system.
 
 ```
@@ -30,6 +32,18 @@ It's also possible to directly create and deploy all containers.
 ```
 $ bundle install
 $ bundle exec rake container:all[my_registry.com]
+```
+
+#### With vagrant
+
+```
+$ vagrant up
+...
+$ vagrant ssh
+vagrant@vagrant:~$ sudo -i
+root@vagrant:~# cd /vagrant
+root@vagrant:~# bundle exec berks vendor
+root@vagrant:~# bundle exec rake container:create
 ```
 
 ###### You now have a docker image:

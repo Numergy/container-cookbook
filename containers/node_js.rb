@@ -6,5 +6,5 @@ machine 'node_js' do
       tag: '14.04'
     }
   }
-  recipe 'container::ndenv'
+  role 'node_js'
 end

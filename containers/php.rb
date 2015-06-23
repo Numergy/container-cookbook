@@ -6,5 +6,5 @@ machine 'php' do
       tag: '14.04'
     }
   }
-  recipe 'container::phpenv'
+  role 'php'
 end

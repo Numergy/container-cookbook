@@ -6,5 +6,5 @@ machine 'ruby' do
       tag: '14.04'
     }
   }
-  recipe 'container::rbenv'
+  role 'ruby'
 end

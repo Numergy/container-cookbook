@@ -4,8 +4,7 @@ source 'https://rubygems.org'
 
 gem 'chef', '~> 12'
 gem 'chef-provisioning'
-# Waiting for release on rubygems
-gem 'chef-provisioning-docker', github: 'chef/chef-provisioning-docker'
+gem 'chef-provisioning-docker'
 gem 'berkshelf'
 
 group :integration do

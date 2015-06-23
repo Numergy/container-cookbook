@@ -16,10 +16,6 @@
 # limitations under the License.
 #
 
-node.default['rbenv']['user'] = 'root'
-node.default['rbenv']['group'] = 'root'
-node.default['rbenv']['user_home'] = '/root/'
-
 include_recipe 'container'
 include_recipe 'rbenv'
 include_recipe 'rbenv::ruby_build'
