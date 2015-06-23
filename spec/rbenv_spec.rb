@@ -40,8 +40,6 @@ describe 'container::rbenv' do
       .with(source: 'http://binaries.intercityup.com/ruby/ubuntu/14.04/x86_64/ruby-2.1.0.tar.bz2')
     expect(subject).to run_execute('install-ruby-2.1.0-binaries')
       .with(command: "tar jxf ruby-2.1.0.tar.bz2\nrm ruby-2.1.0.tar.bz2\n",
-            user: 'root',
-            group: 'root',
             cwd: '/opt/rbenv/versions')
   end
 
