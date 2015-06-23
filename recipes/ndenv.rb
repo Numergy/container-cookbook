@@ -16,18 +16,13 @@
 # limitations under the License.
 #
 
-node.default['ndenv']['user'] = 'root'
-node.default['ndenv']['user_home'] = '/root/'
-node.default['ndenv']['group'] = 'root'
-node.default['ndenv']['manage_home'] = false
 node.default['ndenv']['installs'] = node['container']['ndenv']['versions']
 node.default['ndenv']['global'] = node['container']['ndenv']['global']
 
 include_recipe 'container'
-include_recipe 'chrome'
-include_recipe 'xvfb'
 include_recipe 'ndenv'
 include_recipe 'ndenv::install'
+
 package 'openjdk-7-jre-headless' # Selenium requirements
 
 node['ndenv']['installs'].each do |node_version|

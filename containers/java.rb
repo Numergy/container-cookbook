@@ -6,5 +6,5 @@ machine 'java' do
       tag: '14.04'
     }
   }
-  recipe 'container::jenv'
+  role 'java'
 end

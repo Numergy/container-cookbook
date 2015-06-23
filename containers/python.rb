@@ -6,5 +6,5 @@ machine 'python' do
       tag: '14.04'
     }
   }
-  recipe 'container::pyenv'
+  role 'python'
 end

@@ -16,10 +16,6 @@
 # limitations under the License.
 #
 
-node.default['phpenv']['user'] = 'root'
-node.default['phpenv']['group'] = 'root'
-node.default['phpenv']['user_home'] = '/root/'
-
 include_recipe 'container'
 
 execute 'link-libraries' do
