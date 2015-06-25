@@ -34,6 +34,15 @@ describe 'container::rbenv' do
     expect(subject).to include_recipe('rbenv::ruby_build')
   end
 
+  it 'should install ruby binaries' do
+    expect(subject)
+      .to create_remote_file('/opt/rbenv/versions/ruby-2.1.0.tar.bz2')
+      .with(source: 'http://binaries.intercityup.com/ruby/ubuntu/14.04/x86_64/ruby-2.1.0.tar.bz2')
+    expect(subject).to run_execute('install-ruby-2.1.0-binaries')
+      .with(command: "tar jxf ruby-2.1.0.tar.bz2\nrm ruby-2.1.0.tar.bz2\n",
+            cwd: '/opt/rbenv/versions')
+  end
+
   it 'install rbenv' do
     ['1.9.3-p547', '2.0.0-p598', '2.1.0-rc1'].each do |ruby_version|
       expect(subject).to install_rbenv_ruby(ruby_version)

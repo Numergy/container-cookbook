@@ -1,0 +1,15 @@
+{
+    "name": "ruby",
+    "json_class": "Chef::Role",
+    "description": "Build ruby container.",
+    "override_attributes": {
+        "rbenv" : {
+            "user": "root",
+            "user_home": "/root",
+            "group": "root"
+        }
+    },
+    "run_list": [
+        "container::rbenv"
+    ]
+}

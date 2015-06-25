@@ -1,0 +1,8 @@
+{
+    "name": "python",
+    "json_class": "Chef::Role",
+    "description": "Build python container.",
+    "run_list": [
+        "container::pyenv"
+    ]
+}

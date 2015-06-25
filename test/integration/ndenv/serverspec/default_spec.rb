@@ -37,3 +37,11 @@ bins.each do |command|
     it { should be_executable }
   end
 end
+
+describe package('google-chrome-stable') do
+  it { should be_installed }
+end
+
+describe package('xvfb') do
+  it { should be_installed }
+end

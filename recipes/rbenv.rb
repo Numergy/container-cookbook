@@ -16,13 +16,33 @@
 # limitations under the License.
 #
 
-node.default['rbenv']['user'] = 'root'
-node.default['rbenv']['group'] = 'root'
-node.default['rbenv']['user_home'] = '/root/'
-
 include_recipe 'container'
 include_recipe 'rbenv'
 include_recipe 'rbenv::ruby_build'
+
+node['container']['rbenv']['available_binaries'].each do |rb_version|
+  ruby_binary = "ruby-#{rb_version}.tar.bz2"
+  remote_file "#{node['rbenv']['root_path']}/versions/#{ruby_binary}" do
+    source "#{node['container']['rbenv']['binaries_url']}/" \
+    "#{node['platform_version']}/#{node['kernel']['machine']}/#{ruby_binary}"
+  end
+
+  execute "install-ruby-#{rb_version}-binaries" do
+    user node['rbenv']['user']
+    group node['rbenv']['group']
+    cwd "#{node['rbenv']['root_path']}/versions"
+    command <<-EOM
+tar jxf #{ruby_binary}
+rm #{ruby_binary}
+EOM
+    not_if do
+      File.directory?(File.join('opt',
+                                'rbenv',
+                                'versions',
+                                rb_version))
+    end
+  end
+end
 
 node['container']['rbenv']['versions'].each do |rb_version|
   rbenv_ruby rb_version do

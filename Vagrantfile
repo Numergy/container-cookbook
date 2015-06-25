@@ -29,11 +29,21 @@ Vagrant::configure('2') do |config|
       v.customize ['modifyvm', :id, '--memory', 2048]
     end
 
-    builder.vm.provision :shell, inline: 'if ! type "chef-solo"; then wget -O - https://www.opscode.com/chef/install.sh | sudo bash; fi'
-    builder.vm.provision :chef_solo do |chef|
+    builder.vm.provision :chef_zero do |chef|
       chef.cookbooks_path = ['cookbooks']
       chef.add_recipe('container')
-      chef.add_recipe('container::builder')
+      chef.add_recipe('docker')
     end
+
+    $script = <<SCRIPT
+echo "PATH=$PATH:/opt/chef/embedded/bin" > /etc/profile.d/vagrant.sh
+chmod +x /etc/profile.d/vagrant.sh
+source /etc/profile.d/vagrant.sh
+gem install bundler
+pushd /vagrant
+bundle install
+popd
+SCRIPT
+    builder.vm.provision :shell, inline: $script
   end
 end

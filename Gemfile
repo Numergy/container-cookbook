@@ -3,6 +3,8 @@
 source 'https://rubygems.org'
 
 gem 'chef', '~> 12'
+gem 'chef-provisioning'
+gem 'chef-provisioning-docker'
 gem 'berkshelf'
 
 group :integration do
@@ -14,5 +16,4 @@ group :integration do
   gem 'serverspec'
   gem 'chefspec'
   gem 'foodcritic'
-  gem 'knife-container'
 end

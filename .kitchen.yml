@@ -1,4 +1,5 @@
 ---
+roles_path: ./roles
 driver:
   customize:
     memory: 2048
@@ -8,29 +9,21 @@ driver_config:
   require_chef_omnibus: true
 
 platforms:
-  - name: ubuntu-12.04
   - name: ubuntu-14.04
 
 suites:
   - name: ndenv
     run_list:
-      - recipe[container::ndenv]
+      - role[node_js]
   - name: phpenv
     run_list:
-      - recipe[container::phpenv]
+      - role[php]
   - name: pyenv
     run_list:
-      - recipe[container::pyenv]
+      - role[python]
   - name: rbenv
     run_list:
-      - recipe[container::rbenv]
-    excludes:
-      - ubuntu-14.04
-  - name: builder
-    run_list:
-      - recipe[container::builder]
-    excludes:
-      - ubuntu-12.04
+      - role[ruby]
   - name: jenv
     run_list:
-      - recipe[container::jenv]
+      - role[java]

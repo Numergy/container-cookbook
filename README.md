@@ -15,15 +15,7 @@ Provided recipes are:
 - rbenv
 - jenv
 
-## Building containers
-
-The `builder` recipe can be used to spawn a builder vm, this recipe install all requirements to work with `knife-container`.
-If you are a vagrant user, you can use the `Vagrantfile` at the root of the repository, it will create an Ubuntu 14.04 and apply
-`container::builder` recipe.
-
-After vm converged, you can ssh and play with `knife container` commands.
-
-### Example to build a ruby container:
+### Example to build a container:
 
 #### With Rake
 
@@ -31,74 +23,49 @@ This method only works if you have docker installed on your system.
 
 ```
 $ bundle install
-$ bundle exec rake container:prepare_ruby #-> or simply `prepare` to prepare all containers
 $ bundle exec rake container:create_ruby #-> or simply `create` to create all containers
 $ bundle exec rake container:deploy_ruby[my_registry.com] #-> or simply `deploy` to deploy container to `my_registry.com`
 ```
 
-It's also possible to directly prepare, create and deploy all containers.
+It's also possible to directly create and deploy all containers.
 
 ```
 $ bundle install
 $ bundle exec rake container:all[my_registry.com]
 ```
 
-
 #### With vagrant
-
-```
-$ bundle install
-$ bundle exec berks vendor cookbooks
-```
-
-##### And run vagrant:
 
 ```
 $ vagrant up
 ...
 $ vagrant ssh
-vagrant@vagrant:~$ sudo su -
-root@vagrant:~# knife container docker init builder/ruby -r 'recipe[container::rbenv]' --cookbook-path /vagrant/cookbooks --dockerfiles-path /vagrant/dockerfiles -z --force
-root@vagrant:~# cp -r /vagrant/cookbooks/ /vagrant/dockerfiles/builder/ruby/chef/
-root@vagrant:~# knife container docker build builder/ruby --no-berks -z --dockerfiles /vagrant/dockerfiles/
+vagrant@vagrant:~$ sudo -i
+root@vagrant:~# cd /vagrant
+root@vagrant:~# bundle exec berks vendor
+root@vagrant:~# bundle exec rake container:create
 ```
 
 ###### You now have a docker image:
 
 ```
-root@vagrant:~# docker images
+$ docker images
 REPOSITORY          TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
-builder/ruby        latest              f8290ef73660        7 minutes ago       722.4 MB
+chef                ruby                f8290ef73660        7 minutes ago       722.4 MB
 ...
 ```
 
 ###### Running our container:
 
 ```
-root@vagrant:~# docker run -d builder/ruby
-bc48f4d6aa4dd55c8013572996626c9597395f5d7c57be3b30556029990c6112
-root@vagrant:~# docker ps
-CONTAINER ID        IMAGE                 COMMAND                CREATED             STATUS              PORTS               NAMES
-bc48f4d6aa4d        builder/ruby:latest   "chef-init --onboot"   6 seconds ago       Up 5 seconds                            cranky_mccarthy
-root@vagrant:~# docker exec bc48f4d6aa4d su -l root -c "rbenv versions"
-stdin: is not a tty
+$ docker run -t -i --entrypoint "/bin/bash" chef:ruby --login -c "rbenv versions"
 * 1.9.3-p547 (set by /opt/rbenv/version)
   2.0.0-p598
   2.1.0
   2.1.5
 ```
 
-or
-
-```
-root@vagrant:~# docker run -t -i --entrypoint "/bin/bash" builder/ruby --login -c "rbenv versions"
-* 1.9.3-p547 (set by /opt/rbenv/version)
-  2.0.0-p598
-  2.1.0
-  2.1.5
-```
-
-More info about containers with chef: https://docs.getchef.com/containers.html
+More info about containers with chef: https://docs.chef.io/containers.html
 
 ## License and Authors
 
