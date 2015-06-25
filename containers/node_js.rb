@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 machine 'node_js' do
   machine_options docker_options: {
     base_image: {

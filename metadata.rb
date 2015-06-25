@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 name 'container'
 maintainer 'Numergy'
 maintainer_email 'cd@numergy.com'

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 machine 'php' do
   machine_options docker_options: {
     base_image: {
