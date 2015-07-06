@@ -11,6 +11,7 @@ group :integration do
   gem 'rake'
   gem 'test-kitchen'
   gem 'kitchen-vagrant'
+  gem 'kitchen-docker'
   gem 'serverspec'
   gem 'chefspec'
   gem 'foodcritic'

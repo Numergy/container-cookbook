@@ -1,0 +1,26 @@
+---
+roles_path: ./roles
+driver:
+  name: docker
+  binary: docker
+  use_sudo: false
+
+platforms:
+  - name: ubuntu-14.04
+
+suites:
+  - name: ndenv
+    run_list:
+      - role[node_js]
+  - name: phpenv
+    run_list:
+      - role[php]
+  - name: pyenv
+    run_list:
+      - role[python]
+  - name: rbenv
+    run_list:
+      - role[ruby]
+  - name: jenv
+    run_list:
+      - role[java]
