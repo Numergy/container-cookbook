@@ -4,5 +4,10 @@
     "description": "Build python container.",
     "run_list": [
         "container::pyenv"
-    ]
+    ],
+    "default_attributes": {
+        "pyenv": {
+            "git_url": "https://github.com/yyuu/pyenv.git"
+        }
+    }
 }
