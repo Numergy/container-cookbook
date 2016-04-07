@@ -14,7 +14,7 @@ platforms:
 suites:
   - name: ndenv
     run_list:
-      - role[node_js]
+      - role[nodejs]
   - name: phpenv
     run_list:
       - role[php]

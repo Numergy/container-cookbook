@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-machine 'node_js' do
+
+machine_image 'ci_nodejs' do
+  role 'nodejs'
   machine_options docker_options: {
     base_image: {
       name: 'ubuntu',
@@ -7,5 +9,4 @@ machine 'node_js' do
       tag: '14.04'
     }
   }
-  role 'node_js'
 end

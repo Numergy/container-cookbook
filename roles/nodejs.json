@@ -1,5 +1,5 @@
 {
-    "name": "node_js",
+    "name": "nodejs",
     "json_class": "Chef::Role",
     "description": "Build NodeJs container.",
     "override_attributes": {
