@@ -2,8 +2,8 @@
 source 'https://rubygems.org'
 
 gem 'chef', '~> 12'
-gem 'chef-provisioning'
-gem 'chef-provisioning-docker'
+gem 'chef-provisioning', '= 1.0.1'
+gem 'chef-provisioning-docker', '0.9.0'
 gem 'berkshelf'
 
 group :integration do

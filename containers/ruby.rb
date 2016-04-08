@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-machine 'ruby' do
+
+machine_image 'ci_ruby' do
+  role 'ruby'
   machine_options docker_options: {
     base_image: {
       name: 'ubuntu',
@@ -7,5 +9,4 @@ machine 'ruby' do
       tag: '14.04'
     }
   }
-  role 'ruby'
 end

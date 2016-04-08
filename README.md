@@ -51,14 +51,13 @@ root@vagrant:~# bundle exec rake container:create
 ```
 $ docker images
 REPOSITORY          TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
-chef                ruby                f8290ef73660        7 minutes ago       722.4 MB
-...
+ci_ruby             latest              f8290ef73660        7 minutes ago       722.4 MB
 ```
 
 ###### Running our container:
 
 ```
-$ docker run -t -i --entrypoint "/bin/bash" chef:ruby --login -c "rbenv versions"
+$ docker run -t -i --entrypoint "/bin/bash" ci_ruby --login -c "rbenv versions"
 * 1.9.3-p547 (set by /opt/rbenv/version)
   2.0.0-p598
   2.1.0

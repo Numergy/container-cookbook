@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-machine 'java' do
+
+machine_image 'ci_java' do
+  role 'java'
   machine_options docker_options: {
     base_image: {
       name: 'ubuntu',
@@ -7,5 +9,4 @@ machine 'java' do
       tag: '14.04'
     }
   }
-  role 'java'
 end

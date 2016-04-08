@@ -25,43 +25,15 @@ end
 include_recipe 'phpenv'
 
 node['container']['phpenv']['versions'].each do |php_version|
-  phpenv_build php_version
+  phpenv_build php_version do
+    timeout 7200
+  end
+
   template "ci-#{php_version}.ini" do
     source 'php/ci.ini.erb'
     path("#{node['phpenv']['root_path']}/" \
          "versions/#{php_version}/etc/conf.d/ci.ini")
     action :create
-  end
-
-  # Touch directory to fix bug with docker aufs
-  execute "touch-directory-#{php_version}" do
-    command("touch #{node['phpenv']['root_path']}/versions/#{php_version}/bin/")
-  end
-
-  node['container']['phpenv']['pyrus_extensions'].each do |extension|
-    phpenv_script "install-pyrus-#{extension}-#{php_version}" do
-      phpenv_version php_version
-      code "pyrus install #{extension}"
-      only_if('[ -z "$(./pyrus list-packages | ' \
-             "egrep '^#{extension.gsub(%r{(?:[^/]*/)?([^-]*).*}, '\1')} ')\" ]",
-              cwd: "#{node['phpenv']['root_path']}/versions/#{php_version}/bin")
-    end
-  end
-
-  phpenv_script "pecl-config-#{php_version}" do
-    phpenv_version php_version
-    code("pear config-set php_ini #{node['phpenv']['root_path']}/" \
-         "versions/#{php_version}/etc/php.ini")
-  end
-
-  node['container']['phpenv']['pear_extensions'].each do |extension|
-    phpenv_script "install-pear-#{extension}-#{php_version}" do
-      phpenv_version php_version
-      code "pear install #{extension}"
-      only_if('[ -z "$(./pear list -a | ' \
-             "egrep '^#{extension.gsub(%r{(?:[^/]*/)?([^-]*).*}, '\1')} ')\" ]",
-              cwd: "#{node['phpenv']['root_path']}/versions/#{php_version}/bin")
-    end
   end
 end
 

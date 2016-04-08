@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-machine 'python' do
+
+machine_image 'ci_python' do
+  role 'python'
   machine_options docker_options: {
     base_image: {
       name: 'ubuntu',
@@ -7,5 +9,4 @@ machine 'python' do
       tag: '14.04'
     }
   }
-  role 'python'
 end

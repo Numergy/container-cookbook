@@ -17,11 +17,9 @@
 #
 
 node.default['container']['rbenv']['versions'] = ['1.9.3-p547',
-                                                  '2.0.0-p598',
-                                                  '2.1.0',
                                                   '2.1.5']
-node.default['container']['rbenv']['global'] = '1.9.3-p547'
+node.default['container']['rbenv']['global'] = '2.1.5'
 node.default['container']['rbenv']['packages'] = %w(bundler)
 
 default['container']['rbenv']['binaries_url'] = 'http://binaries.intercityup.com/ruby/ubuntu'
-default['container']['rbenv']['available_binaries'] = %w(2.1.0)
+default['container']['rbenv']['available_binaries'] = %w(2.1.5)

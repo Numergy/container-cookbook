@@ -16,10 +16,7 @@
 # limitations under the License.
 #
 
-default['container']['phpenv']['versions'] = ['5.3.29', '5.4.35', '5.5.19']
-default['container']['phpenv']['global'] = '5.3.29'
-default['container']['phpenv']['pear_extensions'] = ['pecl/mongo']
-default['container']['phpenv']['pyrus_extensions'] = ['pear/Archive_Tar-1.3.14',
-                                                      'pear/PEAR']
+default['container']['phpenv']['versions'] = ['5.5.34', '7.0.5']
+default['container']['phpenv']['global'] = '5.5.34'
 default['container']['phpenv']['ini_config'] =
   ["date.timezone = 'Europe/Paris'"]

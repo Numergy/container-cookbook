@@ -52,24 +52,24 @@ end
 
 namespace :container  do
   current_dir = File.dirname(__FILE__)
-  containers = %w(java node_js php python ruby)
+  containers = %w(java nodejs php python ruby)
   containers.each do |name|
     task "create_#{name}".to_sym do
       run_command("chef-client -c #{current_dir}/.chef/knife.rb -z #{current_dir}/containers/#{name}.rb")
     end
 
     task "deploy_#{name}".to_sym, [:repository] do |_t, args|
-      repository = "#{args[:repository]}/" unless args[:repository].nil?
-      sh "docker tag -f $(docker images chef | grep #{name} | " \
-      "awk '{ print $3 }') #{repository}#{name}-builder"
-      sh "docker push #{repository}#{name}-builder"
+      repository = args[:repository] unless args[:repository].nil?
+      sh "docker tag $(docker images | grep ci_#{name} | " \
+         "awk '{ print $3 }') #{repository}/#{name}-builder"
+      sh "docker push #{repository}/#{name}-builder"
     end
   end
 
   multitask create: containers.map { |name, _recipe| "create_#{name}".to_sym }
 
   task :deploy, [:repository] do |_t, args|
-    repository = "#{args[:repository]}" unless args[:repository].nil?
+    repository = args[:repository] unless args[:repository].nil?
     containers.each do |name, _recipe|
       task "deploy_#{name}_m".to_sym do
         Rake::Task["container:deploy_#{name}".to_sym].invoke(repository)

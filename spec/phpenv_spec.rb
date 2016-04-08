@@ -8,8 +8,6 @@ describe 'container::phpenv' do
     ChefSpec::SoloRunner.new do |node|
       node.set['container']['phpenv']['versions'] = ['5.3.29', '5.4.2']
       node.set['container']['phpenv']['global'] = '5.3.29'
-      node.set['container']['phpenv']['pyrus_extensions'] = ['pecl/my_package']
-      node.set['container']['phpenv']['pear_extensions'] = ['pecl/phpcs']
     end.converge described_recipe
   end
 
@@ -32,20 +30,6 @@ describe 'container::phpenv' do
       expect(subject).to create_template("ci-#{php_version}.ini")
         .with(source: 'php/ci.ini.erb',
               path: "/opt/phpenv/versions/#{php_version}/etc/conf.d/ci.ini")
-      expect(subject).to run_execute("touch-directory-#{php_version}")
-        .with(command: "touch /opt/phpenv/versions/#{php_version}/bin/")
-      expect(subject)
-        .to run_phpenv_script("install-pyrus-pecl/my_package-#{php_version}")
-        .with(phpenv_version: php_version,
-              code: 'pyrus install pecl/my_package')
-      expect(subject).to run_phpenv_script("pecl-config-#{php_version}")
-        .with(phpenv_version: php_version,
-              code: 'pear config-set php_ini /opt/phpenv/versions' \
-              "/#{php_version}/etc/php.ini")
-      expect(subject)
-        .to run_phpenv_script("install-pear-pecl/phpcs-#{php_version}")
-        .with(phpenv_version: php_version,
-              code: 'pear install pecl/phpcs')
     end
 
     expect(subject).to create_phpenv_global('5.3.29')

@@ -6,3 +6,4 @@ metadata
 cookbook 'docker'
 cookbook 'pyenv', git: 'https://github.com/sds/chef-pyenv.git'
 cookbook 'rbenv', git: 'https://github.com/RiotGames/rbenv-cookbook.git'
+cookbook 'phpenv', git: 'https://github.com/Numergy/phpenv-cookbook.git'
