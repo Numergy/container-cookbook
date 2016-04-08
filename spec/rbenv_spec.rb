@@ -9,6 +9,7 @@ describe 'container::rbenv' do
                                                     '2.1.0-rc1']
       node.set['container']['rbenv']['global'] = '2.0.0-p598'
       node.set['container']['rbenv']['packages'] = %w(bundler gemirro)
+      node.set['container']['rbenv']['available_binaries'] = %w(2.1.0)
     end.converge described_recipe
   end
 
