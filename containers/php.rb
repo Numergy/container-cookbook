@@ -8,8 +8,7 @@ machine_image 'ci_php' do
       repository: 'ubuntu',
       tag: '14.04'
     }
-  },
-  docker_connection: {
-    read_timeout: 10000
+  }, docker_connection: {
+    read_timeout: 10_000
   }
 end

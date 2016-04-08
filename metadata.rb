@@ -18,3 +18,8 @@ depends 'phpenv'
 depends 'pyenv'
 depends 'rbenv'
 depends 'xvfb'
+
+source_url 'https://github.com/Numergy/container-cookbook' if
+  respond_to?(:source_url)
+issues_url 'https://github.com/Numergy/container-cookbook/issues' if
+  respond_to?(:issues_url)

@@ -50,12 +50,13 @@ namespace :test do
   end
 end
 
-namespace :container  do
+namespace :container do
   current_dir = File.dirname(__FILE__)
   containers = %w(java nodejs php python ruby)
   containers.each do |name|
     task "create_#{name}".to_sym do
-      run_command("chef-client -c #{current_dir}/.chef/knife.rb -z #{current_dir}/containers/#{name}.rb")
+      run_command("chef-client -c #{current_dir}/.chef/knife.rb -z "\
+                  "#{current_dir}/containers/#{name}.rb")
     end
 
     task "deploy_#{name}".to_sym, [:repository] do |_t, args|
